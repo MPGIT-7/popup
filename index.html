@@ -8,28 +8,56 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <button type="submit" class="btn" onclick="OpenPopup()">Submit</button>
+    <div class="container" id="blur">
+        <div class="form">
+            <form action="sendmail(); reset(); return false;">
+                <h3>Get In Touch<br>Email Task</h3>
+                <input type="text" id="name" placeholder="Your name">
+                <button type="submit">Send</button>
+            </form>
+        </div>
+        <button type="submit" class="btn" onclick="OpenPopup();toggle();">Submit</button>
         <div class="popup" id="popup">
             <h2>Thank You Mayur</h2>
             <p>Your Details Have Been Saved...!</p>
-            <button type="button" class="popbtn" onclick="ClosePopup()">OK</button>
+            <button type="button" class="popbtn" onclick="ClosePopup();">OK</button>
         </div>
     </div>
+    
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
 
-<script>
-    let popup = document.getElementById("popup");
+    <script>
+        function toggle(){
+            console.log('Yes It is Getting Clicked...!');
+            var blur = document.getElementById('blur');
+            blur.classList.toggle('active');
+        }
 
-    function OpenPopup(){
-        popup.classList.add("open-popup");
-        
+        let popup = document.getElementById("popup");
+
+        function OpenPopup(){
+            popup.classList.add("open-popup");    
+        }
+
+        function ClosePopup(){
+            popup.classList.remove("open-popup");
     }
 
-    function ClosePopup(){
-        popup.classList.remove("open-popup");
-        
-    }
+        function sendmail(){
+            Email.send({
+    Host : "smtp.yourisp.com",
+    Username : "username",
+    Password : "password",
+    To : 'them@website.com',
+    From : "you@isp.com",
+    Subject : "This is the subject",
+    Body : "And this is the body"
+}).then(
+  message => alert(message)
+);
+        }
     
 </script>    
+
 </body>
 </html>
